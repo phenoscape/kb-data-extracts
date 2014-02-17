@@ -1,0 +1,28 @@
+# Search for taxa asserted to have a particular state
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX ps: <http://purl.org/phenoscape/vocab.owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX StandardState: <http://purl.obolibrary.org/obo/CDAO_0000045>
+PREFIX bd: <http://www.bigdata.com/rdf/search#>
+# Replace the prefix value with the state URI of interest
+PREFIX characterstate: <http://purl.org/phenoscape/uuid/528ce2b2-1710-4ea4-87da-ee7ec4a9bc57>
+PREFIX has_state: <http://purl.obolibrary.org/obo/CDAO_0000184>
+PREFIX has_tu: <http://purl.obolibrary.org/obo/CDAO_0000208>
+PREFIX belongs_to_tu: <http://purl.obolibrary.org/obo/CDAO_0000191>
+PREFIX has_external_reference: <http://purl.obolibrary.org/obo/CDAO_0000164>
+
+SELECT DISTINCT ?taxon ?taxon_label ?matrix_label
+FROM <http://kb.phenoscape.org/>
+WHERE 
+{ 
+?cell has_state: characterstate: .
+?cell belongs_to_tu: ?otu .
+?otu has_external_reference: ?taxon .
+?taxon rdfs:label ?taxon_label .
+?matrix has_tu: ?otu .
+?matrix rdfs:label ?matrix_label .
+}
+
