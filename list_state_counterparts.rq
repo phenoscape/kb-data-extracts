@@ -1,0 +1,18 @@
+# List all states which are values for a character
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX ps: <http://purl.org/phenoscape/vocab.owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX StandardState: <http://purl.obolibrary.org/obo/CDAO_0000045>
+PREFIX bd: <http://www.bigdata.com/rdf/search#>
+# replace the value of the following prefix with the character URI of interest
+PREFIX character: <http://purl.org/phenoscape/uuid/61c0481d-0f82-4b32-97b1-5b8c8f2eece3>
+
+SELECT DISTINCT ?state ?state_label
+FROM <http://kb.phenoscape.org/>
+WHERE 
+{ 
+character: ps:may_have_state_value ?state .
+?state dc:description ?state_label .
+}

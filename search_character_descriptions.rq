@@ -1,0 +1,25 @@
+# Search for character states using the full text index.
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX ps: <http://purl.org/phenoscape/vocab.owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX StandardState: <http://purl.obolibrary.org/obo/CDAO_0000045>
+PREFIX bd: <http://www.bigdata.com/rdf/search#>
+
+SELECT DISTINCT ?character ?character_label ?state ?state_label
+FROM <http://kb.phenoscape.org/>
+WHERE 
+{ 
+?state rdf:type StandardState: .
+?state rdfs:label ?state_label .
+?state dc:description ?state_desc .
+# replace the value of the following triple with the text for which you would like to search
+?state_desc bd:search "femur shape" .
+?state_desc bd:matchAllTerms "true" .
+?state_desc bd:rank ?rank .
+?character ps:may_have_state_value ?state .
+?character rdfs:label ?character_label .
+}
+ORDER BY DESC(?rank)
