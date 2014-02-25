@@ -1,0 +1,20 @@
+# Count annotated taxa (those associated with states with an EQ annotation)
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX ps: <http://purl.org/phenoscape/vocab.owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX owlet: <http://purl.org/phenoscape/owlet/syntax#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX StandardState: <http://purl.obolibrary.org/obo/CDAO_0000045>
+PREFIX StandardCharacter: <http://purl.obolibrary.org/obo/CDAO_0000075>
+PREFIX has_state: <http://purl.obolibrary.org/obo/CDAO_0000184>
+PREFIX belongs_to_tu: <http://purl.obolibrary.org/obo/CDAO_0000191>
+PREFIX has_external_reference: <http://purl.obolibrary.org/obo/CDAO_0000164>
+
+SELECT (COUNT (DISTINCT ?taxon) AS ?count)
+FROM <http://kb.phenoscape.org/>
+WHERE 
+{ 
+?taxon ps:has_member/ps:exhibits ?pheno_instance .
+}
