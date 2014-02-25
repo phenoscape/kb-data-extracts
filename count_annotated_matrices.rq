@@ -1,0 +1,22 @@
+# Count annotated matrices (those with states with an EQ annotation)
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX ps: <http://purl.org/phenoscape/vocab.owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX owlet: <http://purl.org/phenoscape/owlet/syntax#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX has_character: <http://purl.obolibrary.org/obo/CDAO_0000142>
+PREFIX StandardState: <http://purl.obolibrary.org/obo/CDAO_0000045>
+PREFIX StandardCharacter: <http://purl.obolibrary.org/obo/CDAO_0000075>
+PREFIX CharacterStateDataMatrix: <http://purl.obolibrary.org/obo/CDAO_0000056>
+
+SELECT (COUNT (DISTINCT ?matrix) AS ?count)
+FROM <http://kb.phenoscape.org/>
+WHERE 
+{ 
+?state ps:denotes_exhibiting ?pheno_instance .
+?matrix_char ps:may_have_state_value ?state .
+?matrix has_character: ?matrix_char .
+?matrix rdf:type CharacterStateDataMatrix: .
+}
