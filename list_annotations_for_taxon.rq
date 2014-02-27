@@ -27,8 +27,10 @@ WHERE
 ?entity rdfs:label ?entity_label .
 ?phenotype ps:quality_term ?quality .
 ?quality rdfs:label ?quality_label .
-?phenotype ps:related_entity_term ?related_entity .
-?related_entity rdfs:label ?related_entity_label .
+OPTIONAL {
+	?phenotype ps:related_entity_term ?related_entity .
+	?related_entity rdfs:label ?related_entity_label .
+}
 ?matrix_char ps:may_have_state_value ?state .
 ?matrix has_character: ?matrix_char .
 }
