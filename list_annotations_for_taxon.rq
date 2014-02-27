@@ -1,0 +1,34 @@
+# List all annotations as entered by a curator for a given taxon and its subtaxa
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX ps: <http://purl.org/phenoscape/vocab.owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX owlet: <http://purl.org/phenoscape/owlet/syntax#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX StandardState: <http://purl.obolibrary.org/obo/CDAO_0000045>
+PREFIX has_state: <http://purl.obolibrary.org/obo/CDAO_0000184>
+PREFIX has_character: <http://purl.obolibrary.org/obo/CDAO_0000142>
+PREFIX belongs_to_tu: <http://purl.obolibrary.org/obo/CDAO_0000191>
+PREFIX has_external_reference: <http://purl.obolibrary.org/obo/CDAO_0000164>
+PREFIX Tiktaalik: <http://purl.obolibrary.org/obo/VTO_9000791>
+
+SELECT DISTINCT ?taxon ?taxon_label ?state_description ?entity ?entity_label ?quality ?quality_label ?related_entity ?related_entity_label
+FROM <http://kb.phenoscape.org/>
+WHERE 
+{ 
+?taxon rdfs:subClassOf* Tiktaalik: .
+?taxon rdfs:label ?taxon_label .
+?cell belongs_to_tu:/has_external_reference: ?taxon .
+?cell has_state: ?state .
+?state ps:denotes_exhibiting/rdf:type ?phenotype .
+?state dc:description ?state_description .
+?phenotype ps:entity_term ?entity .
+?entity rdfs:label ?entity_label .
+?phenotype ps:quality_term ?quality .
+?quality rdfs:label ?quality_label .
+?phenotype ps:related_entity_term ?related_entity .
+?related_entity rdfs:label ?related_entity_label .
+?matrix_char ps:may_have_state_value ?state .
+?matrix has_character: ?matrix_char .
+}
