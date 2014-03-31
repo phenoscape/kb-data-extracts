@@ -1,0 +1,19 @@
+# Count gene phenotype annotations
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX ps: <http://purl.org/phenoscape/vocab.owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX Zebrafish: <http://purl.obolibrary.org/obo/NCBITaxon_7955>
+PREFIX Mouse: <http://purl.obolibrary.org/obo/NCBITaxon_10090>
+PREFIX X_laevis: <http://purl.obolibrary.org/obo/NCBITaxon_8355>
+PREFIX X_tropicalis: <http://purl.obolibrary.org/obo/NCBITaxon_8364>
+PREFIX Human: <http://purl.obolibrary.org/obo/NCBITaxon_9606>
+
+SELECT (COUNT (DISTINCT ?annotation) AS ?count)
+FROM <http://kb.phenoscape.org/>
+WHERE 
+{ 
+?annotation rdf:type ps:AnnotatedPhenotype .
+?annotation ps:associated_with_taxon Zebrafish: .
+}
