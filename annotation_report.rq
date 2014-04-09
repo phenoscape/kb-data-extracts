@@ -1,0 +1,35 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ps: <http://purl.org/phenoscape/vocab.owl#>
+PREFIX has_character: <http://purl.obolibrary.org/obo/CDAO_0000142>
+PREFIX has_state: <http://purl.obolibrary.org/obo/CDAO_0000184>
+PREFIX oboInOWL: <http://www.geneontology.org/formats/oboInOWL#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (STR(?matrix_label) AS ?matrix_file) (STR(?char_number) AS ?character_number) (STR(?char_label) AS ?character_text) (STR(?symbol) AS ?state_symbol) (STR(?state_label) AS ?state_text) (STR(?entity) AS ?entity_id) (STR(?entity_label) AS ?entity_name) (STR(?quality) AS ?quality_id) (STR(?quality_label) AS ?quality_name) (STR(?related_entity) AS ?related_entity_id) (STR(?related_entity_label) AS ?related_entity_name) (GROUP_CONCAT(DISTINCT ?attribute_label; separator=", ") AS ?attributes)
+FROM <http://kb.phenoscape.org/>
+WHERE
+{	
+?state rdfs:label ?state_label .
+?matrix has_character: ?matrix_char .
+?matrix_char rdfs:label ?char_label .
+?matrix_char ps:list_index ?char_number .
+?matrix rdfs:label ?matrix_label .
+?matrix_char ps:may_have_state_value ?state .
+?state ps:state_symbol ?symbol .
+?state ps:denotes_exhibiting/rdf:type ?phenotype .
+?phenotype ps:entity_term ?entity .
+?entity rdfs:label ?entity_label .
+?phenotype ps:quality_term ?quality .
+?quality rdfs:label ?quality_label .
+OPTIONAL {
+	?phenotype ps:related_entity_term ?related_entity .
+	?related_entity rdfs:label ?related_entity_label .
+}
+OPTIONAL {
+	?attribute oboInOWL:inSubset "character_slim"^^xsd:string .
+	?quality rdfs:subClassOf* ?attribute .
+	?attribute rdfs:label ?attribute_label .
+}
+}
+GROUP BY ?matrix_label ?char_number ?char_label ?symbol ?state_label ?entity ?entity_label ?quality ?quality_label ?related_entity ?related_entity_label
