@@ -1,0 +1,49 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ps: <http://purl.org/phenoscape/vocab.owl#>
+PREFIX has_character: <http://purl.obolibrary.org/obo/CDAO_0000142>
+PREFIX has_state: <http://purl.obolibrary.org/obo/CDAO_0000184>
+PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+PREFIX ow: <http://purl.org/phenoscape/owlet/syntax#>
+PREFIX PelvicFin: <http://purl.obolibrary.org/obo/UBERON_0000152>
+PREFIX PectoralFin: <http://purl.obolibrary.org/obo/UBERON_0000151>
+PREFIX part_of: <http://purl.obolibrary.org/obo/BFO_0000050>
+PREFIX belongs_to_tu: <http://purl.obolibrary.org/obo/CDAO_0000191>
+PREFIX has_external_reference: <http://purl.obolibrary.org/obo/CDAO_0000164>
+PREFIX Actinopterygii: <http://purl.obolibrary.org/obo/VTO_0033622>
+
+SELECT (STR(?matrix_label) AS ?matrix_file) (STR(?taxon) AS ?taxon_id) (STR(?taxon_label) AS ?taxon_name) (STR(?char_number) AS ?character_number) (STR(?char_label) AS ?character_text) (STR(?symbol) AS ?state_symbol) (STR(?state_label) AS ?state_text) (STR(?entity) AS ?entity_id) (STR(?entity_label) AS ?entity_name) (STR(?quality) AS ?quality_id) (STR(?quality_label) AS ?quality_name) (STR(?related_entity) AS ?related_entity_id) (STR(?related_entity_label) AS ?related_entity_name) (GROUP_CONCAT(DISTINCT ?attribute_label; separator=", ") AS ?attributes)
+FROM <http://kb.phenoscape.org/>
+WHERE
+{	
+?state rdfs:label ?state_label .
+?matrix has_character: ?matrix_char .
+?matrix_char rdfs:label ?char_label .
+?matrix_char ps:list_index ?char_number .
+?matrix rdfs:label ?matrix_label .
+?matrix_char ps:may_have_state_value ?state .
+?cell has_state: ?state .
+?cell belongs_to_tu:/has_external_reference: ?taxon .
+?taxon rdfs:subClassOf* Actinopterygii: .
+?taxon rdfs:label ?taxon_label .
+?state ps:state_symbol ?symbol .
+?state ps:denotes_exhibiting/rdf:type ?phenotype .
+?phenotype ps:entity_term|ps:related_entity_term ?query_entity .
+?query_entity rdfs:subClassOf "part_of: some (PectoralFin: or PelvicFin:)"^^ow:omn .
+?phenotype ps:entity_term ?entity .
+#?entity rdfs:subClassOf "part_of: some (PectoralFin: or PelvicFin:)"^^ow:omn .
+?entity rdfs:label ?entity_label .
+?phenotype ps:quality_term ?quality .
+?quality rdfs:label ?quality_label .
+OPTIONAL {
+	?phenotype ps:related_entity_term ?related_entity .
+	?related_entity rdfs:label ?related_entity_label .
+}
+OPTIONAL {
+	?attribute oboInOwl:inSubset <http://purl.obolibrary.org/obo/TEMP#character_slim> .
+	?quality rdfs:subClassOf* ?attribute .
+	?attribute rdfs:label ?attribute_label .
+}
+}
+GROUP BY ?matrix_label ?taxon ?taxon_label ?char_number ?char_label ?symbol ?state_label ?entity ?entity_label ?quality ?quality_label ?related_entity ?related_entity_label

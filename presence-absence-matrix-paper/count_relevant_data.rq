@@ -18,12 +18,12 @@ PREFIX connected_to: <http://purl.obolibrary.org/obo/UBREL_0000001>
 PREFIX GirdleSkeleton: <http://purl.obolibrary.org/obo/UBERON_0010719>
 PREFIX inheres_in_part_of: <http://purl.obolibrary.org/obo/RO_0002314>
 
-SELECT DISTINCT ?matrix_label
+SELECT DISTINCT ?matrix_char
 FROM <http://kb.phenoscape.org/>
 WHERE
 {	
 ?entity rdfs:subClassOf "part_of: some (LimbFin: or GirdleSkeleton:) or connected_to: some (LimbFin: or GirdleSkeleton:)"^^ow:omn .
-?eq ps:entity_term ?entity .
+?eq ps:entity_term|ps:related_entity_term ?entity .
 ?state ps:denotes_exhibiting/rdf:type ?eq .
 ?matrix has_character: ?matrix_char .
 ?matrix rdfs:label ?matrix_label .

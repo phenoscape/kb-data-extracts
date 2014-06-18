@@ -3,7 +3,7 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX ps: <http://purl.org/phenoscape/vocab.owl#>
 PREFIX has_character: <http://purl.obolibrary.org/obo/CDAO_0000142>
 PREFIX has_state: <http://purl.obolibrary.org/obo/CDAO_0000184>
-PREFIX oboInOWL: <http://www.geneontology.org/formats/oboInOWL#>
+PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
 PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
 
 SELECT (STR(?matrix_label) AS ?matrix_file) (STR(?char_number) AS ?character_number) (STR(?char_label) AS ?character_text) (STR(?symbol) AS ?state_symbol) (STR(?state_label) AS ?state_text) (STR(?entity) AS ?entity_id) (STR(?entity_label) AS ?entity_name) (STR(?quality) AS ?quality_id) (STR(?quality_label) AS ?quality_name) (STR(?related_entity) AS ?related_entity_id) (STR(?related_entity_label) AS ?related_entity_name) (GROUP_CONCAT(DISTINCT ?attribute_label; separator=", ") AS ?attributes)
@@ -27,7 +27,7 @@ OPTIONAL {
 	?related_entity rdfs:label ?related_entity_label .
 }
 OPTIONAL {
-	?attribute oboInOWL:inSubset "character_slim"^^xsd:string .
+	?attribute oboInOwl:inSubset <http://purl.obolibrary.org/obo/TEMP#character_slim> .
 	?quality rdfs:subClassOf* ?attribute .
 	?attribute rdfs:label ?attribute_label .
 }
