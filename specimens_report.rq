@@ -15,8 +15,9 @@ PREFIX has_external_reference: <http://purl.obolibrary.org/obo/CDAO_0000164>
 PREFIX Characiformes: <http://purl.obolibrary.org/obo/VTO_0037519>
 PREFIX dwc: <http://rs.tdwg.org/dwc/terms/>
 PREFIX Family: <http://purl.obolibrary.org/obo/TAXRANK_0000004>
+PREFIX Order: <http://purl.obolibrary.org/obo/TAXRANK_0000003>
 
-SELECT DISTINCT (STR(?taxon) AS ?taxon_id) (STR(?taxon_label) AS ?taxon_name) (STR(?family_label) AS ?family_name) (STR(?entity) AS ?entity_id) (STR(?entity_label) AS ?entity_name) (STR(?quality) AS ?quality_id) (STR(?quality_label) AS ?quality_name) (STR(?related_entity) AS ?related_entity_id) (STR(?related_entity_label) AS ?related_entity_name) (STR(?collection) AS ?collection_code) (STR(?catalog_number) AS ?cat_number)
+SELECT (STR(?taxon) AS ?taxon_id) (STR(?taxon_label) AS ?taxon_name) (STR(?order_label) AS ?order_name) (STR(?family_label) AS ?family_name) (STR(?collection) AS ?collection_code) (STR(?catalog_number) AS ?cat_number) (COUNT(DISTINCT ?phenotype) AS ?phenotype_count)
 FROM <http://kb.phenoscape.org/>
 FROM <http://purl.obolibrary.org/obo/tto.owl>
 WHERE
@@ -24,23 +25,20 @@ WHERE
 ?cell has_state: ?state .
 ?cell belongs_to_tu: ?otu .
 ?otu has_external_reference: ?taxon .
-?taxon rdfs:subClassOf* Characiformes: .
 ?taxon rdfs:label ?taxon_label .
 ?taxon rdfs:subClassOf* ?vto_family .
 ?vto_family rdfs:label ?family_label .
 ?vto_family oboInOwl:hasDbXref ?xref .
 ?tto_family oboInOwl:hasDbXref ?xref .
 ?tto_family <http://purl.obolibrary.org/obo/tto#has_rank> Family: .
+?taxon rdfs:subClassOf* ?vto_order .
+?vto_order rdfs:label ?order_label .
+?vto_order oboInOwl:hasDbXref ?xref .
+?tto_order oboInOwl:hasDbXref ?xref .
+?tto_order <http://purl.obolibrary.org/obo/tto#has_rank> Order: .
 ?state ps:denotes_exhibiting/rdf:type ?phenotype .
-?phenotype ps:entity_term ?entity .
-?entity rdfs:label ?entity_label .
-?phenotype ps:quality_term ?quality .
-?quality rdfs:label ?quality_label .
-OPTIONAL {
-	?phenotype ps:related_entity_term ?related_entity .
-	?related_entity rdfs:label ?related_entity_label .
-}
 ?otu dwc:individualID ?specimen .
 ?specimen dwc:collectionID/rdfs:label ?collection .
 ?specimen dwc:catalogNumber ?catalog_number .
 }
+GROUP BY ?taxon ?taxon_label ?order_label ?family_label ?collection ?catalog_number
