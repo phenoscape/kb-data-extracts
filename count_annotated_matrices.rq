@@ -15,7 +15,7 @@ SELECT (COUNT (DISTINCT ?matrix) AS ?count)
 FROM <http://kb.phenoscape.org/>
 WHERE 
 { 
-?state ps:denotes_exhibiting ?pheno_instance .
+?state ps:describes_phenotype ?phenotype .
 ?matrix_char ps:may_have_state_value ?state .
 ?matrix has_character: ?matrix_char .
 ?matrix rdf:type CharacterStateDataMatrix: .

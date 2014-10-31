@@ -16,5 +16,5 @@ SELECT (COUNT (DISTINCT ?taxon) AS ?count)
 FROM <http://kb.phenoscape.org/>
 WHERE 
 { 
-?taxon ps:has_member/ps:exhibits ?pheno_instance .
+?taxon ps:exhibits_state/ps:describes_phenotype ?phenotype .
 }

@@ -36,7 +36,7 @@ WHERE
 ?vto_order oboInOwl:hasDbXref ?xref .
 ?tto_order oboInOwl:hasDbXref ?xref .
 ?tto_order <http://purl.obolibrary.org/obo/tto#has_rank> Order: .
-?state ps:denotes_exhibiting/rdf:type ?phenotype .
+?state ps:describes_phenotype ?phenotype .
 ?otu dwc:individualID ?specimen .
 ?specimen dwc:collectionID/rdfs:label ?collection .
 ?specimen dwc:catalogNumber ?catalog_number .

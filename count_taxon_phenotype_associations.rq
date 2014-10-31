@@ -15,7 +15,7 @@ SELECT (COUNT (DISTINCT ?cell) AS ?count)
 FROM <http://kb.phenoscape.org/>
 WHERE 
 { 
-?state ps:denotes_exhibiting ?pheno_instance .
+?state ps:describes_phenotype ?phenotype .
 ?cell has_state: ?state .
 ?cell belongs_to_tu:/has_external_reference: ?taxon .
 }

@@ -10,7 +10,7 @@ PREFIX StandardState: <http://purl.obolibrary.org/obo/CDAO_0000045>
 PREFIX inheres_in: <http://purl.obolibrary.org/obo/BFO_0000052>
 PREFIX towards: <http://purl.obolibrary.org/obo/pato#towards>
 # Replace the entity URI with the term of interest
-PREFIX Entity: <http://purl.obolibrary.org/obo/UBERON_4000164>
+PREFIX Entity: <http://purl.obolibrary.org/obo/UBERON_0008897>
 
 SELECT DISTINCT ?state ?state_desc
 FROM <http://kb.phenoscape.org/>
@@ -18,6 +18,8 @@ WHERE
 { 
 ?state rdf:type StandardState: .
 ?state dc:description ?state_desc .
-?state ps:denotes_exhibiting/rdf:type ?eq .
+?state ps:describes_phenotype ?eq .
+SERVICE <http://pkb-new.nescent.org/owlery/kbs/phenoscape/sparql> {
 ?eq rdfs:subClassOf "(inheres_in: some Entity:) or (towards: some Entity:) or (towards: value Entity:)"^^owlet:omn .
+}
 }

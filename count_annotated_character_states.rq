@@ -13,5 +13,5 @@ FROM <http://kb.phenoscape.org/>
 WHERE 
 { 
 ?state rdf:type StandardState: .
-?state ps:denotes_exhibiting ?pheno_instance .
+?state ps:describes_phenotype ?phenotype .
 }

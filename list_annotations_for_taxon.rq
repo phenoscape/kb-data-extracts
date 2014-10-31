@@ -19,9 +19,8 @@ WHERE
 { 
 ?taxon rdfs:subClassOf* Tiktaalik: .
 ?taxon rdfs:label ?taxon_label .
-?cell belongs_to_tu:/has_external_reference: ?taxon .
-?cell has_state: ?state .
-?state ps:denotes_exhibiting/rdf:type ?phenotype .
+?taxon ps:exhibits_state ?state .
+?state ps:describes_phenotype ?phenotype .
 ?state dc:description ?state_description .
 ?phenotype ps:entity_term ?entity .
 ?entity rdfs:label ?entity_label .

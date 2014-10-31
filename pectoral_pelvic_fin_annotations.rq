@@ -23,12 +23,11 @@ WHERE
 ?matrix_char ps:list_index ?char_number .
 ?matrix rdfs:label ?matrix_label .
 ?matrix_char ps:may_have_state_value ?state .
-?cell has_state: ?state .
-?cell belongs_to_tu:/has_external_reference: ?taxon .
+?taxon ps:exhibits_state ?state .
 ?taxon rdfs:subClassOf* Actinopterygii: .
 ?taxon rdfs:label ?taxon_label .
 ?state ps:state_symbol ?symbol .
-?state ps:denotes_exhibiting/rdf:type ?phenotype .
+?state ps:describes_phenotype ?phenotype .
 ?phenotype ps:entity_term|ps:related_entity_term ?query_entity .
 ?query_entity rdfs:subClassOf "part_of: some (PectoralFin: or PelvicFin:)"^^ow:omn .
 ?phenotype ps:entity_term ?entity .
