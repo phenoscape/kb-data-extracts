@@ -22,3 +22,4 @@ The public SPARQL endpoint for the Phenoscape KB is currently at http://kb-dev.p
 
 [SPARQL]: http://www.w3.org/TR/sparql11-overview/
 [VoID]: https://www.w3.org/TR/void/
+[YASGUI]: http://yasgui.org/
