@@ -6,7 +6,9 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX StandardState: <http://purl.obolibrary.org/obo/CDAO_0000045>
 PREFIX bd: <http://www.bigdata.com/rdf/search#>
-# replace the value of the following prefix with the character URI of interest
+# Replace the value of the following prefix with the character URI of interest
+# These URIs are not persistent across KB updates; this example will return no 
+# results unless you provide a valid character URI.
 PREFIX character: <http://purl.org/phenoscape/uuid/61c0481d-0f82-4b32-97b1-5b8c8f2eece3>
 
 SELECT DISTINCT ?state ?state_label
