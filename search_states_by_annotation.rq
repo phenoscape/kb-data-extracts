@@ -11,7 +11,10 @@ PREFIX inheres_in: <http://purl.obolibrary.org/obo/BFO_0000052>
 PREFIX towards: <http://purl.obolibrary.org/obo/pato#towards>
 # Replace the entity URI with the term of interest
 PREFIX Entity: <http://purl.obolibrary.org/obo/UBERON_0008897>
+PREFIX has_part: <http://purl.obolibrary.org/obo/BFO_0000051>
+PREFIX hint: <http://www.bigdata.com/queryHints#>
 
+# This query illustrates using Phenoscape Owlery as a federated SERVICE for an OWL class expression.
 SELECT DISTINCT ?state ?state_desc
 FROM <http://kb.phenoscape.org/>
 WHERE 
@@ -19,7 +22,8 @@ WHERE
 ?state rdf:type StandardState: .
 ?state dc:description ?state_desc .
 ?state ps:describes_phenotype ?eq .
-SERVICE <http://pkb-new.nescent.org/owlery/kbs/phenoscape/sparql> {
-?eq rdfs:subClassOf "(inheres_in: some Entity:) or (towards: some Entity:) or (towards: value Entity:)"^^owlet:omn .
+SERVICE <http://kb.phenoscape.org/owlery/kbs/phenoscape/sparql> {
+    ?eq rdfs:subClassOf "(has_part: some (inheres_in: some Entity:)) or (has_part: some (towards: some Entity:)) or (has_part: some (towards: value Entity:))"^^owlet:omn .
 }
+hint:Prior hint:runFirst true .
 }
