@@ -8,6 +8,8 @@ PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX StandardState: <http://purl.obolibrary.org/obo/CDAO_0000045>
 PREFIX bd: <http://www.bigdata.com/rdf/search#>
 # Replace the prefix value with the state URI of interest
+# These URIs are not persistent across KB updates; this example will return no 
+# results unless you provide a valid state URI.
 PREFIX characterstate: <http://purl.org/phenoscape/uuid/528ce2b2-1710-4ea4-87da-ee7ec4a9bc57>
 PREFIX has_state: <http://purl.obolibrary.org/obo/CDAO_0000184>
 PREFIX has_tu: <http://purl.obolibrary.org/obo/CDAO_0000208>
