@@ -14,7 +14,7 @@ Queries (primarily in [SPARQL]) for data extracts, summaries, reports, etc from 
   
 You will need to replace the endpoint URI (`http://localhost:8080/bigdata/sparql` in the command line example above) with the correct location of the SPARQL service.
 
-You can also interactively enter the query and modify it iteratively based on results, for example using [YASGUI]. (You will need to provide the SPRAQL endpoint, see below.)
+You can also interactively enter the query and modify it iteratively based on results, for example using [YASGUI]. (You will need to provide the SPARQL endpoint, see below.)
 
 ## Phenoscape KB SPARQL endpoint
 
