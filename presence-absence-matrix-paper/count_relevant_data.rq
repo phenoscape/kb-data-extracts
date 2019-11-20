@@ -22,17 +22,17 @@ PREFIX hint: <http://www.bigdata.com/queryHints#>
 SELECT ?matrix ?matrix_label (COUNT(DISTINCT ?matrix_char) AS ?char_count) (COUNT(DISTINCT ?state) AS ?state_count) (COUNT(DISTINCT ?phenotype) AS ?phenotype_count) (COUNT(DISTINCT ?taxon) AS ?taxon_count)
 FROM <http://kb.phenoscape.org/>
 WHERE
-{	
+{
     ?phenotype (ps:entity_term|ps:related_entity_term) ?entity .
     ?state ps:denotes_exhibiting/rdf:type ?phenotype .
     ?matrix_char ps:may_have_state_value ?state .
     ?matrix has_character: ?matrix_char .
     ?matrix rdfs:label ?matrix_label .
     ?state ^has_state:/belongs_to_tu:/has_external_reference: ?taxon .
-SERVICE <http://pkb-new.nescent.org/owlery/kbs/phenoscape/sparql> {
+SERVICE <https://kb.phenoscape.org/owlery/kbs/phenoscape/sparql> {
     ?taxon rdfs:subClassOf "Sarcopterygii:"^^ow:omn .
 }
-SERVICE <http://pkb-new.nescent.org/owlery/kbs/phenoscape/sparql> {
+SERVICE <https://kb.phenoscape.org/owlery/kbs/phenoscape/sparql> {
     ?entity rdfs:subClassOf "part_of: some (LimbFin: or GirdleSkeleton:) or connected_to: some (LimbFin: or GirdleSkeleton:)"^^ow:omn .
 }
     hint:Prior hint:runFirst "true" .
