@@ -1,7 +1,7 @@
 # Search for character states by EQ annotation
 PREFIX obo: <http://purl.obolibrary.org/obo/>
 PREFIX ps: <http://purl.org/phenoscape/vocab.owl#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX owlet: <http://purl.org/phenoscape/owlet/syntax#>
@@ -17,12 +17,12 @@ PREFIX hint: <http://www.bigdata.com/queryHints#>
 # This query illustrates using Phenoscape Owlery as a federated SERVICE for an OWL class expression.
 SELECT DISTINCT ?state ?state_desc
 FROM <http://kb.phenoscape.org/>
-WHERE 
-{ 
+WHERE
+{
 ?state rdf:type StandardState: .
 ?state dc:description ?state_desc .
 ?state ps:describes_phenotype ?eq .
-SERVICE <http://kb.phenoscape.org/owlery/kbs/phenoscape/sparql> {
+SERVICE <https://kb.phenoscape.org/owlery/kbs/phenoscape/sparql> {
     ?eq rdfs:subClassOf "(has_part: some (inheres_in: some Entity:)) or (has_part: some (towards: some Entity:)) or (has_part: some (towards: value Entity:))"^^owlet:omn .
 }
 hint:Prior hint:runFirst true .
