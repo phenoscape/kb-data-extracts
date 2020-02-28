@@ -13,6 +13,11 @@ PREFIX belongs_to_tu: <http://purl.obolibrary.org/obo/CDAO_0000191>
 PREFIX has_external_reference: <http://purl.obolibrary.org/obo/CDAO_0000164>
 PREFIX Actinopterygii: <http://purl.obolibrary.org/obo/VTO_0033622>
 
+# This query makes uses of an embedded OWL expression, and must be expanded using the Phenoscape Owlery API
+# before submitting to the Phenoscape KB SPARQL endpoint. This consists of chaining two services:
+# curl -X POST --data-binary @pectoral_pelvic_fin_annotations.rq --header "Content-Type: application/sparql-query" https://kb.phenoscape.org/owlery/kbs/phenoscape/expand >pectoral_pelvic_fin_annotations_expanded.rq
+# curl -X POST --data-binary @pectoral_pelvic_fin_annotations_expanded.rq --header "Content-Type: application/sparql-query" --header "Accept: text/tab-separated-values" https://stars-app.renci.org/phenoscape/sparql >result.txt
+
 SELECT (STR(?matrix_label) AS ?matrix_file) (STR(?taxon) AS ?taxon_id) (STR(?taxon_label) AS ?taxon_name) (STR(?char_number) AS ?character_number) (STR(?char_label) AS ?character_text) (STR(?symbol) AS ?state_symbol) (STR(?state_label) AS ?state_text) (STR(?entity) AS ?entity_id) (STR(?entity_label) AS ?entity_name) (STR(?quality) AS ?quality_id) (STR(?quality_label) AS ?quality_name) (STR(?related_entity) AS ?related_entity_id) (STR(?related_entity_label) AS ?related_entity_name) (GROUP_CONCAT(DISTINCT ?attribute_label; separator=", ") AS ?attributes)
 FROM <http://kb.phenoscape.org/>
 WHERE
